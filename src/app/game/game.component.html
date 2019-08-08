@@ -1,16 +1,30 @@
 <section id="game">
     <div class="row">
         <div class="large-6 medium-6 small-6 columns">
-            <div class="turn">Turn: <div id="player_color"></div> <span class="name"></span></div>
+            <div class="turn">Turn: 
+                <div id="player_color" 
+                    [ngClass]="'player'.concat(turn)">
+                </div> 
+                <span class="name"></span>
+            </div>
         </div>
         <div class="large-6 medium-6 small-6 columns">
-            <a href="#" id="retract">Retract</a>
+            <a href="#" id="retract" 
+                [hidden]="!canRetract"
+                [ngClass]="'player'.concat(preTurn)">
+                Retract
+            </a>
         </div>
     </div>
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
             <div id="wrapper">
-
+                <div *ngFor="let row of status">
+                    <div *ngFor="let value of row;" 
+                        [style.width]="tileWidth+'px'"
+                        [style.height]="tileWidth+'px'" 
+                        class="check"></div>
+                </div>
             </div>
         </div>
     </div>

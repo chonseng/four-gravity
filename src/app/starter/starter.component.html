@@ -4,24 +4,34 @@
             <h2>Game Settings</h2>
             Size of grid:
             <ul class="size settings">
-                <li id="size-8">8</li>
+                <li *ngFor="let sizeOption of sizeOptions" 
+                    [ngClass]="{'selected': sizeOption == size}"
+                    (click)="onChooseSize(sizeOption)">
+                    {{ sizeOption }}
+                </li>
+                <!-- <li id="size-8">8</li>
                 <li id="size-9">9</li>
                 <li id="size-10" class="selected">10</li>
                 <li id="size-11">11</li>
                 <li id="size-12">12</li>
                 <li id="size-13">13</li>
                 <li id="size-14">14</li>
-                <li id="size-15">15</li>
+                <li id="size-15">15</li> -->
             </ul>
             Number of Players:
             <ul class="numOfPlayer settings">
-                <li id="numOfPlayer-2">2</li>
+                <li *ngFor="let numOfPlayersOption of numOfPlayersOptions" 
+                    [ngClass]="{selected: numOfPlayersOption == numOfPlayers}"
+                    (click)="onChooseNumOfPlayers(numOfPlayersOption)">
+                    {{ numOfPlayersOption }}
+                </li>
+                <!-- <li id="numOfPlayer-2">2</li>
                 <li id="numOfPlayer-3">3</li>
                 <li id="numOfPlayer-4" class="selected">4</li>
                 <li id="numOfPlayer-5">5</li>
-                <li id="numOfPlayer-6">6</li>
+                <li id="numOfPlayer-6">6</li> -->
             </ul>
-            <div class="button" id="new_game">New Game</div>
+            <div class="button" id="new_game" (click)="onNewGame()">New Game</div>
         </div>
     </div>
 </section>
