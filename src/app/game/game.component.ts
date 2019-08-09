@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Tile } from '../tile';
 
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+
+const swal: SweetAlert = _swal as any;
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -13,13 +18,15 @@ export class GameComponent implements OnInit {
   gameEnded: boolean = false
   canRetract: boolean = false
   turn: number = 1
-  preTurn: number
-  status: number[][]
-  preStatus: number[][]
-  isValid: boolean[][]
-  preIsValid: boolean[][]
-  tileWidth: number
+  // preTurn: number
+  // status: number[][]
+  // preStatus: number[][]
+  // isValid: boolean[][]
+  // preIsValid: boolean[][]
+  // tileWidth: number
   learningMode: boolean = false
+  tiles: Tile[][] = []
+  PLAYER_NAME: string[] = ["Red", "Blue", "Yellow", "Green", "Pink", "Purple"]
 
   constructor() { }
 
@@ -31,10 +38,10 @@ export class GameComponent implements OnInit {
     return newArray
   }
 
-  setTileClasses(i, j) {
+  setTileClasses(tile) {
     let classes = {}
-    classes['valid'] = this.isValid[i][j]
-    let playerStr = 'player' + this.status[i][j]
+    classes['valid'] = tile.isValid
+    let playerStr = 'player' + tile.player
     classes[playerStr] = true
     return classes
   }
@@ -54,57 +61,78 @@ export class GameComponent implements OnInit {
         this.numOfPlayers = data['numOfPlayers']
       }
     }
-    // Init game status
-    this.status = Array.from(Array(this.size), () => Array(this.size).fill(0))
-    this.preStatus = Array.from(Array(this.size), () => Array(this.size).fill(0))
-    this.isValid = Array.from(Array(this.size), () => Array(this.size).fill(false))
-    this.preIsValid = Array.from(Array(this.size), () => Array(this.size).fill(false))
-    // Set the edges to be a valid move
-    const EDGE_INDICES = [0, this.size - 1]
-    console.log(EDGE_INDICES)
-    for (let rowIndex of Array(this.size).keys()) {
-      for (let colIndex of Array(this.size).keys()) {
-        if (EDGE_INDICES.includes(rowIndex) ||
-            EDGE_INDICES.includes(colIndex)) {
-              this.isValid[rowIndex][colIndex] = true
-            }
-      }
-    }
-    console.log(this.isValid)
 
     const MARGIN = 2
     let screenWidth = document.getElementById("wrapper").offsetWidth
-    this.tileWidth = Math.floor(screenWidth / this.size) - MARGIN * 2
+    let tileLength = Math.floor(screenWidth / this.size) - MARGIN * 2
+    const EDGE_INDICES = [0, this.size - 1]
+    for (let i of Array(this.size).keys()) {
+      let row = []
+      for (let j of Array(this.size).keys()) {
+        let tile: Tile = {
+          r: i,
+          c: j,
+          player: 0,
+          isValid: EDGE_INDICES.includes(i) || EDGE_INDICES.includes(j),
+          length: tileLength
+        }
+        row.push(tile)
+      }
+      this.tiles.push(row)
+    }
+    console.log(this.tiles)
+    // // Init game status
+    // this.status = Array.from(Array(this.size), () => Array(this.size).fill(0))
+    // this.preStatus = Array.from(Array(this.size), () => Array(this.size).fill(0))
+    // this.isValid = Array.from(Array(this.size), () => Array(this.size).fill(false))
+    // this.preIsValid = Array.from(Array(this.size), () => Array(this.size).fill(false))
+    // // Set the edges to be a valid move
+    // console.log(EDGE_INDICES)
+    // for (let rowIndex of Array(this.size).keys()) {
+    //   for (let colIndex of Array(this.size).keys()) {
+    //     if (EDGE_INDICES.includes(rowIndex) ||
+    //         EDGE_INDICES.includes(colIndex)) {
+    //           this.isValid[rowIndex][colIndex] = true
+    //         }
+    //   }
+    // }
+    // console.log(this.isValid)
+
 
     
 
   }
 
-  nextTurn() {
-    this.turn += 1
-    if (this.turn > this.numOfPlayers)
-      this.turn = 1
+  turnPlusOne(turn: number) {
+    turn += 1
+    if (turn > this.numOfPlayers)
+      turn = 1
+    return turn
   }
 
-  updateIsValid(row: number, col: number) {
-    this.isValid[row][col] = false
-    let end = this.size - 1
-    let rowPositions = [0, end, row, row]
-    let colPositions = [col, col, 0, end]
-    let rowOperators = [+1, -1, 0, 0]
-    let colOperators = [0, 0, +1, -1]
+  isOutOfBound(n: number) {
+    return (n < 0) || (n >= this.size)
+  }
+
+  updateIsValid(tile: Tile) {
+    tile.isValid = false
+    let end: number = this.size - 1
+    let rowPositions: number[] = [0, end, tile.r, tile.r]
+    let colPositions: number[] = [tile.c, tile.c, 0, end]
+    let rowOperators: number[] = [+1, -1, 0, 0]
+    let colOperators: number[] = [0, 0, +1, -1]
     for (let i of Array(4).keys()) {
-      let row = rowPositions[i]
-      let col = colPositions[i]
-      let rowOptr = rowOperators[i]
-      let colOptr = colOperators[i]
+      let row: number = rowPositions[i]
+      let col: number = colPositions[i]
+      let rowOptr: number = rowOperators[i]
+      let colOptr: number = colOperators[i]
       for (let _ of Array(this.size)) {
         // console.log(row, col)
-        if (this.status[row][col] == 0) {
-          if (this.isValid[row][col] == true) {
+        if (this.tiles[row][col].player == 0) {
+          if (this.tiles[row][col].isValid == true) {
             break
           } else {
-            this.isValid[row][col] = true
+            this.tiles[row][col].isValid = true
             console.log(row, col)
             break
           }
@@ -115,18 +143,64 @@ export class GameComponent implements OnInit {
     }
   }
 
+  checkWinCondition(tile: Tile) {
+    // left to right
+    // top to bottom
+    // top left to bottom right
+    // top right to bottom left
+    let hasWon = false
+    let rowPositions: number[] = [tile.r, tile.r-3, tile.r-3, tile.r-3]
+    let colPositions: number[] = [tile.c-3, tile.c, tile.c-3, tile.c+3]
+    let rowOperators: number[] = [0, +1, +1, +1]
+    let colOperators: number[] = [+1, 0, +1, -1]
+    for (let i of Array(4).keys()) {
+      let row: number = rowPositions[i]
+      let col: number = colPositions[i]
+      let rowOptr: number = rowOperators[i]
+      let colOptr: number = colOperators[i]
+      let count: number = 0
+      for (let _ of Array(7)) {
+        if (!this.isOutOfBound(row) && !this.isOutOfBound(col)) {
+          if (this.tiles[row][col].player != tile.player) {
+            count = 0
+          } else {
+            count += 1
+          }
+          if (count == 4) {
+            hasWon = true
+          }
+        }
+        row += rowOptr
+        col += colOptr
+      }
+    }
+    return hasWon
+  }
+
   onLearningMode() {
     this.learningMode = !this.learningMode
     console.log(this.learningMode)
   }
 
-  onMove(row, col) {
-    if (this.isValid[row][col]) {
-      this.preStatus = GameComponent.clone(this.status)
-      this.preIsValid = GameComponent.clone(this.isValid)
-      this.nextTurn()
-      this.status[row][col] = this.turn
-      this.updateIsValid(row, col)
+  onMove(tile: Tile) {
+    if (this.gameEnded) {
+      return
+    }
+    if (tile.isValid) {
+      // this.preStatus = GameComponent.clone(this.status)
+      // this.preIsValid = GameComponent.clone(this.isValid)
+      tile.player = this.turn
+      this.updateIsValid(tile)
+      let hasWon: boolean = this.checkWinCondition(tile)
+      if (hasWon) {
+        console.log(tile.player + " won!")
+        swal({
+          title: "Congratulations!",
+          text: this.PLAYER_NAME[this.turn - 1] + " won the game!",
+        })
+        this.gameEnded = true
+      }
+      this.turn = this.turnPlusOne(this.turn)
     }
   }
 }

@@ -19,12 +19,12 @@
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
             <div id="wrapper" [ngClass]="{'learningMode': learningMode}">
-                <div *ngFor="let row of status; let i=index; trackBy: trackByFn">
-                    <div *ngFor="let value of row; let j=index;" 
-                        (click)="onMove(i, j)"
-                        [style.width]="tileWidth+'px'"
-                        [style.height]="tileWidth+'px'" 
-                        [ngClass]="setTileClasses(i, j)"
+                <div *ngFor="let row of tiles;">
+                    <div *ngFor="let tile of row;" 
+                        (click)="onMove(tile)"
+                        [style.width]="tile.length+'px'"
+                        [style.height]="tile.length+'px'" 
+                        [ngClass]="setTileClasses(tile)"
                         ngCloak
                         class="check"></div>
                 </div>
