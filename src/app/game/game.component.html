@@ -23,8 +23,8 @@
                 <div *ngFor="let row of tiles;">
                     <div *ngFor="let tile of row;" 
                         (click)="onMove(tile)"
-                        [style.width]="tile.length+'px'"
-                        [style.height]="tile.length+'px'" 
+                        [style.width]="wrapper.offsetWidth / size - 2 * 2 +'px'"
+                        [style.height]="wrapper.offsetWidth / size - 2 * 2 +'px'" 
                         [ngClass]="setTileClasses(tile)"
                         ngCloak
                         class="check"></div>

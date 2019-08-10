@@ -4,5 +4,4 @@ export class Tile {
     player: number;
     isValid: boolean;
     isPartOfWinStreak: boolean;
-    length: number;
 }

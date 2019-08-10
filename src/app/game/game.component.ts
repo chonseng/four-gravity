@@ -20,6 +20,8 @@ class Coordinate {
 export class GameComponent implements OnInit {
   PLAYER_NAME: string[] = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"]
   FOUR: number = 4
+  // Tile margin
+  MARGIN: number =2
 
   // Game Setting
   size: number = 9
@@ -71,10 +73,6 @@ export class GameComponent implements OnInit {
         this.numOfPlayers = data['numOfPlayers']
       }
     }
-
-    const MARGIN = 2
-    let screenWidth = document.getElementById("wrapper").offsetWidth
-    let tileLength = Math.floor(screenWidth / this.size) - MARGIN * 2
     const EDGE_INDICES = [0, this.size - 1]
     for (let i of Array(this.size).keys()) {
       let row = []
@@ -85,7 +83,6 @@ export class GameComponent implements OnInit {
           player: 0,
           isValid: EDGE_INDICES.includes(i) || EDGE_INDICES.includes(j),
           isPartOfWinStreak: false,
-          length: tileLength
         }
         row.push(tile)
       }
