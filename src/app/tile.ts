@@ -3,5 +3,6 @@ export class Tile {
     c: number;
     player: number;
     isValid: boolean;
+    isPartOfWinStreak: boolean;
     length: number;
 }

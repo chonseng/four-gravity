@@ -33,41 +33,10 @@ export class StarterComponent implements OnInit {
     this.numOfPlayers = numOfPlayers
   }
 
-  newGame() {
+  onNewGame() {
     this.router.navigate(['/game'], { state: { data: {
       'size': this.size,
       'numOfPlayers': this.numOfPlayers
     } } })
-  }
-
-  onNewGame() {
-    swal({
-      title: "Are you sure to start a new game?",
-      text: "You will not be able to recover the game progress!",
-      icon: "info",
-      buttons: {
-        cancel: {
-          text: "Cancel",
-          value: null,
-          visible: true,
-          className: "",
-          closeModal: true,
-        },
-        confirm: {
-          text: "Yes, start a new game!",
-          value: true,
-          visible: true,
-          className: "",
-          closeModal: true
-        }
-      }
-    })
-    .then((value) => {
-      if (value) {
-        // new game new gameStatus
-        localStorage["gameStatus"] = ""
-        this.newGame()
-      }
-    })
   }
 }

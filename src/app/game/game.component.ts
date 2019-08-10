@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Tile } from '../tile';
 
 import * as _swal from 'sweetalert';
 import { SweetAlert } from 'sweetalert/typings/core';
 
 const swal: SweetAlert = _swal as any;
+
+class Coordinate {
+  r: number;
+  c: number;
+}
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -27,8 +33,9 @@ export class GameComponent implements OnInit {
   learningMode: boolean = false
   tiles: Tile[][] = []
   PLAYER_NAME: string[] = ["Red", "Blue", "Yellow", "Green", "Pink", "Purple"]
+  FOUR: number = 4
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   static clone(arr) {
     let newArray = []
@@ -41,6 +48,7 @@ export class GameComponent implements OnInit {
   setTileClasses(tile) {
     let classes = {}
     classes['valid'] = tile.isValid
+    classes['wonStreak'] = tile.isPartOfWinStreak
     let playerStr = 'player' + tile.player
     classes[playerStr] = true
     return classes
@@ -74,6 +82,7 @@ export class GameComponent implements OnInit {
           c: j,
           player: 0,
           isValid: EDGE_INDICES.includes(i) || EDGE_INDICES.includes(j),
+          isPartOfWinStreak: false,
           length: tileLength
         }
         row.push(tile)
@@ -159,19 +168,31 @@ export class GameComponent implements OnInit {
       let rowOptr: number = rowOperators[i]
       let colOptr: number = colOperators[i]
       let count: number = 0
+      let streakIndices: Coordinate[] = []
       for (let _ of Array(7)) {
         if (!this.isOutOfBound(row) && !this.isOutOfBound(col)) {
           if (this.tiles[row][col].player != tile.player) {
             count = 0
+            if (streakIndices.length < this.FOUR)
+              streakIndices = [] 
           } else {
             count += 1
+            streakIndices.push({
+              r: row,
+              c: col
+            })
           }
-          if (count == 4) {
+          if (count == this.FOUR) {
             hasWon = true
           }
         }
         row += rowOptr
         col += colOptr
+      }
+      if (streakIndices.length >= this.FOUR) {
+        for (let streakIndex of streakIndices) {
+          this.tiles[streakIndex.r][streakIndex.c].isPartOfWinStreak = true
+        }
       }
     }
     return hasWon
@@ -201,6 +222,40 @@ export class GameComponent implements OnInit {
         this.gameEnded = true
       }
       this.turn = this.turnPlusOne(this.turn)
+    }
+  }
+
+  onNewGame() {
+    if (this.gameEnded) {
+      this.router.navigate(['/starter'])
+    }
+    else {
+      swal({
+        title: "Are you sure to start a new game?",
+        text: "You will not be able to recover the game progress!",
+        icon: "info",
+        buttons: {
+          cancel: {
+            text: "Cancel",
+            value: null,
+            visible: true,
+            className: "",
+            closeModal: true,
+          },
+          confirm: {
+            text: "Yes, start a new game!",
+            value: true,
+            visible: true,
+            className: "",
+            closeModal: true
+          }
+        }
+      })
+        .then((value) => {
+          if (value) {
+            this.router.navigate(['/starter'])
+          }
+        })
     }
   }
 }
