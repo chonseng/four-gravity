@@ -18,22 +18,24 @@ class Coordinate {
 })
 
 export class GameComponent implements OnInit {
+  PLAYER_NAME: string[] = ["Red", "Blue", "Yellow", "Green", "Pink", "Purple"]
+  FOUR: number = 4
+
+  // Game Setting
   size: number = 10
   numOfPlayers: number = 4
+
   // Game Status
   gameEnded: boolean = false
   canRetract: boolean = false
   turn: number = 1
-  // preTurn: number
-  // status: number[][]
-  // preStatus: number[][]
-  // isValid: boolean[][]
-  // preIsValid: boolean[][]
-  // tileWidth: number
   learningMode: boolean = false
   tiles: Tile[][] = []
-  PLAYER_NAME: string[] = ["Red", "Blue", "Yellow", "Green", "Pink", "Purple"]
-  FOUR: number = 4
+
+  // For retract function
+  preMoveTile: Tile
+  // Save tile's coordinates which the tile's isValid property is updated (to be valid)
+  updatedIsValidTiles: Tile[] = [] 
 
   constructor(private router: Router) { }
 
@@ -112,10 +114,17 @@ export class GameComponent implements OnInit {
 
   }
 
-  turnPlusOne(turn: number) {
+  nextTurn(turn: number) {
     turn += 1
     if (turn > this.numOfPlayers)
       turn = 1
+    return turn
+  }
+
+  preTurn(turn: number) {
+    turn -= 1
+    if (turn <= 0)
+      turn = this.numOfPlayers
     return turn
   }
 
@@ -136,13 +145,13 @@ export class GameComponent implements OnInit {
       let rowOptr: number = rowOperators[i]
       let colOptr: number = colOperators[i]
       for (let _ of Array(this.size)) {
-        // console.log(row, col)
-        if (this.tiles[row][col].player == 0) {
-          if (this.tiles[row][col].isValid == true) {
+        let curTile: Tile = this.tiles[row][col]
+        if (curTile.player == 0) {
+          if (curTile.isValid == true) {
             break
           } else {
-            this.tiles[row][col].isValid = true
-            console.log(row, col)
+            curTile.isValid = true
+            this.updatedIsValidTiles.push(curTile)
             break
           }
         }
@@ -200,7 +209,6 @@ export class GameComponent implements OnInit {
 
   onLearningMode() {
     this.learningMode = !this.learningMode
-    console.log(this.learningMode)
   }
 
   onMove(tile: Tile) {
@@ -208,8 +216,10 @@ export class GameComponent implements OnInit {
       return
     }
     if (tile.isValid) {
-      // this.preStatus = GameComponent.clone(this.status)
-      // this.preIsValid = GameComponent.clone(this.isValid)
+      // For retract
+      this.preMoveTile = tile
+      this.updatedIsValidTiles = []
+      this.canRetract = true
       tile.player = this.turn
       this.updateIsValid(tile)
       let hasWon: boolean = this.checkWinCondition(tile)
@@ -221,8 +231,18 @@ export class GameComponent implements OnInit {
         })
         this.gameEnded = true
       }
-      this.turn = this.turnPlusOne(this.turn)
+      this.turn = this.nextTurn(this.turn)
     }
+  }
+
+  onRetract() {
+    this.canRetract = false
+    this.turn = this.preTurn(this.turn)
+    for (let tile of this.updatedIsValidTiles) {
+      tile.isValid = false
+    }
+    this.preMoveTile.isValid = true
+    this.preMoveTile.player = 0
   }
 
   onNewGame() {
