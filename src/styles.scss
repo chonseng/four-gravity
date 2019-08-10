@@ -39,121 +39,7 @@ p {
 	font-size: 1em;
 	line-height: 1.65;
 }
-.check {
-	width: 80px;
-	height: 80px;
-	border: 2px solid $lightWhite;
-	float: left;
-	border-radius: 5px;
-	margin: 2px; // MARGIN in javascript
-	-webkit-transition: .2s ease-out all;
-	-o-transition: .2s ease-out all;
-	transition: .2s ease-out all;
 
-	&.lastClicked {
-		animation-duration: 6s;
-		animation-delay: 5s;
-		animation-name: pulse;
-		animation-iteration-count: infinite;
-	}
-	&.wonStreak {
-		animation-duration: 4s;
-		animation-delay: 0s;
-		animation-name: wonPulse;
-		animation-iteration-count: infinite;	
-	}
-}
-@keyframes pulse {
-	0% {
-  		transform: scale(1);
-	}
-
-	2.5%, 7.5% {
-		transform: scale(1.2);
-	}
-
-	5% {
-		transform: scale(1);	
-	}
-
-	10%, 100% {
-		transform: scale(1);
-	}
-}
-
-@keyframes wonPulse {
-	0% {
-		transform: scale(1) rotateZ(0);
-	}
-	
-	5% {
-		transform: scale(1.2) rotateZ(0);
-	}
-	
-	35%, 100% {
-		transform: scale(1) rotateZ(1turn);
-	}
-
-	
-
-	
-}
-
-.player1 {
-	background: $red;
-}
-
-.player2 {
-	background: $orange;
-}
-
-.player3 {
-	background: $yellow;
-}
-
-.player4 {
-	background: $green;
-}
-.player5 {
-	background: $blue;
-}
-.player6 {
-	background: $purple;
-}
-
-.turn div{
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	position: relative;
-	top: 8px;
-	border-radius: 5px;
-
-	animation-duration: 10s;
-	animation-delay: 4s;
-	animation-name: turnAround;
-	animation-iteration-count: infinite;
-}
-@keyframes turnAround {
-	0% {
-	  transform: rotate(0);
-	}
-
-	10%, 100% {
-	  transform: rotateZ(1turn);
-	}
-}
-
-.turn {
-	line-height: 50px;
-}
-
-.crafted {
-	text-align: center;
-}
-.crafted a {
-	color: $blue;
-}
 
 
 .button {
@@ -196,41 +82,9 @@ p {
 	}
 }
 
-#new_game {
-	margin: 1rem 0;
-	display: block;
-	background-color: transparent;
-	box-shadow: 0 5px 0 0 $textColor;
-	color: $textColor;
-	border: 1px solid $textColor;
-	&:active {
-		box-shadow: none;
-	}
-}
-
-#retract {
-	
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	text-align: center;
-	width: 100px;
-	float: right;
-	
-	// background: #E5B96F;
-	color: white;
-	margin-top: 5px;
-
-}
 
 .version {
 	text-align: center;
 }
 
 
-
-#learning_mode {
-	position: relative;
-	margin: 1rem 0;
-	display: block;
-}

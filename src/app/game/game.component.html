@@ -1,4 +1,4 @@
-<section id="game">
+<section class="game">
     <div class="row">
         <div class="large-6 medium-6 small-6 columns">
             <div class="turn">Turn: 
@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
-            <div #wrapper id="wrapper" [ngClass]="{'learningMode': learningMode}">
+            <div #wrapper class="wrapper" [ngClass]="{'learningMode': learningMode}">
                 <div *ngFor="let row of tiles;">
                     <div *ngFor="let tile of row;" 
                         (click)="onMove(tile)"
