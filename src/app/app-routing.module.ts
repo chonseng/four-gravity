@@ -4,8 +4,8 @@ import { StarterComponent } from './starter/starter.component';
 import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/starter', pathMatch: 'full' },
-  { path: 'starter', component: StarterComponent },
+  { path: '', redirectTo: '/start', pathMatch: 'full' },
+  { path: 'start', component: StarterComponent },
   { path: 'game', component: GameComponent },
 ];
 

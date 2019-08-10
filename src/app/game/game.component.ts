@@ -227,7 +227,7 @@ export class GameComponent implements OnInit {
 
   onNewGame() {
     if (this.gameEnded) {
-      this.router.navigate(['/starter'])
+      this.router.navigate(['/start'])
     }
     else {
       swal({
@@ -253,7 +253,7 @@ export class GameComponent implements OnInit {
       })
         .then((value) => {
           if (value) {
-            this.router.navigate(['/starter'])
+            this.router.navigate(['/start'])
           }
         })
     }
