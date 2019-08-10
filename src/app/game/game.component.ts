@@ -175,7 +175,7 @@ export class GameComponent implements OnInit {
     return hasWon
   }
 
-  onLearningMode() {
+  onLearningMode(): void {
     this.gameState.learningMode = !this.gameState.learningMode
   }
 
