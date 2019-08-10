@@ -13,12 +13,12 @@
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
             <section class="setting">
-                <span>Size of grid:</span>
+                <span>Size of the board:</span>
                 <ul class="size options">
                     <li *ngFor="let sizeOption of sizeOptions" 
                         [ngClass]="{'selected': sizeOption == size}"
                         (click)="onChooseSize(sizeOption)">
-                        {{ sizeOption }}
+                        {{ sizeOption }}x{{ sizeOption }}
                     </li>
                     <!-- <li id="size-8">8</li>
                     <li id="size-9">9</li>
@@ -45,7 +45,7 @@
                     <li id="numOfPlayer-6">6</li> -->
                 </ul>
             </section>
-            <div class="button" id="new_game" (click)="onNewGame()">New Game</div>
+            <div class="button new_game" (click)="onNewGame()">New Game</div>
         </div>
     </div>
 </section>

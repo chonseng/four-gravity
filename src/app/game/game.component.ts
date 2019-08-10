@@ -24,8 +24,8 @@ export class GameComponent implements OnInit {
   MARGIN: number =2
 
   // Game Setting
-  size: number = 9
-  numOfPlayers: number = 3
+  size: number = 10
+  numOfPlayers: number = 4
 
   // Game Status
   gameEnded: boolean = false
@@ -33,6 +33,7 @@ export class GameComponent implements OnInit {
   turn: number = 1
   learningMode: boolean = false
   tiles: Tile[][] = []
+  availableMoves: number
 
   // For retract function
   preMoveTile: Tile
@@ -73,6 +74,7 @@ export class GameComponent implements OnInit {
         this.numOfPlayers = data['numOfPlayers']
       }
     }
+    this.availableMoves = this.size * this.size
     const EDGE_INDICES = [0, this.size - 1]
     for (let i of Array(this.size).keys()) {
       let row = []
@@ -217,6 +219,7 @@ export class GameComponent implements OnInit {
       this.preMoveTile = tile
       this.updatedIsValidTiles = []
       this.canRetract = true
+      this.availableMoves -= 1
       tile.player = this.turn
       this.updateIsValid(tile)
       let hasWon: boolean = this.checkWinCondition(tile)
@@ -227,13 +230,45 @@ export class GameComponent implements OnInit {
           text: this.PLAYER_NAME[this.turn - 1] + " won the game!",
         })
         this.gameEnded = true
+        this.canRetract = false
       }
       this.turn = this.nextTurn(this.turn)
+
+      // Check if the board is full
+      if (this.availableMoves == 0) {
+        this.gameEnded = true
+        this.canRetract = false
+        swal({
+          title: "Draw!",
+          icon: "info",
+          buttons: {
+            cancel: {
+              text: "Close",
+              value: null,
+              visible: true,
+              className: "",
+              closeModal: true,
+            },
+            confirm: {
+              text: "Start a new game!",
+              value: true,
+              visible: true,
+              className: "",
+              closeModal: true
+            }
+          }
+        })
+        .then((value) => {
+          if (value)
+            this.onNewGame()
+        })
+      }
     }
   }
 
   onRetract() {
     this.canRetract = false
+    this.availableMoves += 1
     this.turn = this.preTurn(this.turn)
     for (let tile of this.updatedIsValidTiles) {
       tile.isValid = false
@@ -250,7 +285,7 @@ export class GameComponent implements OnInit {
       swal({
         title: "Are you sure to start a new game?",
         text: "You will not be able to recover the game progress!",
-        icon: "info",
+        icon: "warning",
         buttons: {
           cancel: {
             text: "Cancel",

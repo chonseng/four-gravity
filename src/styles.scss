@@ -59,26 +59,37 @@ p {
 	border: 0;
 	border-radius: 5px;
 	&:active {
-	box-shadow: none;
-	top: 5px;
-	margin-bottom: 0;
+		box-shadow: none;
+		top: 5px;
+		margin-bottom: 0;
 	}
 
 	&:hover {
-	opacity: 1;
-	background: $lightWhite;
+		opacity: 1;
+		background: $lightWhite;
 	}
 
 	&:active,
 	&:focus {
-	outline: 0;
+		outline: 0;
 	}
 	&.checked {
-	background: $pink;
-	box-shadow: 0 5px 0 0 darken($pink, 30%);
-	&:active {
-		box-shadow: none;
+		background: $pink;
+		box-shadow: 0 5px 0 0 darken($pink, 30%);
+		&:active {
+			box-shadow: none;
+		}
 	}
+	&.new_game {
+		margin: 1rem 0;
+		display: block;
+		background-color: transparent;
+		box-shadow: 0 5px 0 0 $textColor;
+		color: $textColor;
+		border: 1px solid $textColor;
+		&:active {
+			box-shadow: none;
+		}
 	}
 }
 

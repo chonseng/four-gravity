@@ -128,18 +128,6 @@ section.game {
 	color: $blue;
 }
 
-#new_game {
-	margin: 1rem 0;
-	display: block;
-	background-color: transparent;
-	box-shadow: 0 5px 0 0 $textColor;
-	color: $textColor;
-	border: 1px solid $textColor;
-	&:active {
-		box-shadow: none;
-	}
-}
-
 #retract {
 	
 	height: 40px;
