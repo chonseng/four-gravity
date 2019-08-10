@@ -1,14 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-$lightWhite: rgba(255, 255, 255, .25);
-$darkWhite: rgba(255, 255, 255, .3);
-$highlightColor: #573480;
-$red: #BF0426;
-$blue: #59D8E6;
-$yellow: #F0C600;
-$green: #45BF55;
-$purple: #553285;
-$pink: #FF358B;
-$textColor: #D5FBFF;
+@import "./variables.scss";
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -17,16 +7,9 @@ $textColor: #D5FBFF;
 .row {
 	width: 100%;
 	max-width: 600px;
+	padding: 0 20px;
 }
-#wrapper {
-	width: 100%;
-	overflow: visible;
-	margin-bottom: 10px;
-	&.learningMode .valid {
-		border: 2px solid $pink;
-		box-shadow: 0 0 10px $pink inset;
-	}
-}
+
 body {
 	font-family: 'Maven Pro', 'Nixie One', sans-serif;
 	color: $textColor;
@@ -41,6 +24,7 @@ h1, .row h2 {
 	font-family: 'Pacifico', cursive;
 	color: $textColor;
 	text-align: center;
+	margin: 50px 0;
 }
 h2 {
 	margin: 2rem 0;
@@ -120,7 +104,7 @@ p {
 }
 
 .player2 {
-	background: $blue;
+	background: $orange;
 }
 
 .player3 {
@@ -131,7 +115,7 @@ p {
 	background: $green;
 }
 .player5 {
-	background: $pink;
+	background: $blue;
 }
 .player6 {
 	background: $purple;
@@ -243,31 +227,7 @@ p {
 	text-align: center;
 }
 
-.settings {
-	margin: 0;
-	list-style: none;
-	overflow: auto;
-	cursor: pointer;
-	li {
-		float: left;
-		padding: 10px 20px;
-		margin: 2px 5px;
-		background: black;
-		border-radius: 5px;
-		&:first-child{
-			margin-left: 0;
-		}
-		&.selected {
-			&:nth-child(6n+1) { background: $red }
-			&:nth-child(6n+2) { background: $blue }
-			&:nth-child(6n+3) { background: $yellow }
-			&:nth-child(6n+4) { background: $green }
-			&:nth-child(6n+5) { background: $pink }
-			&:nth-child(6n) { background: $purple }
-			background: $highlightColor;
-		}
-	}	
-}
+
 
 #learning_mode {
 	position: relative;

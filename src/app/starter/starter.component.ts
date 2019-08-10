@@ -13,10 +13,10 @@ const swal: SweetAlert = _swal as any;
 })
 
 export class StarterComponent implements OnInit {
-  sizeOptions: number[] = [...Array(8).keys()].map(x => x+=8)
+  sizeOptions: number[] = [...Array(5).keys()].map(x => x+=8)
   numOfPlayersOptions: number[] = [...Array(5).keys()].map(x => x += 2)
-  size: number = 10
-  numOfPlayers: number = 4
+  size: number = 9
+  numOfPlayers: number = 3
 
   
   constructor(private router: Router) { }

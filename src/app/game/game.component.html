@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="large-12 medium-12 small-12 columns">
-            <div id="wrapper" [ngClass]="{'learningMode': learningMode}">
+            <div #wrapper id="wrapper" [ngClass]="{'learningMode': learningMode}">
                 <div *ngFor="let row of tiles;">
                     <div *ngFor="let tile of row;" 
                         (click)="onMove(tile)"

@@ -1,0 +1,59 @@
+@import "../../variables.scss";
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.logo {
+    width: 300px;
+    margin: 20px auto;
+    .tile {
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+        display: inline-block;
+        border-radius: 5px;
+        background: white;
+        &:nth-child(6n+1) { background: $red }
+        &:nth-child(6n+2) { background: $orange }
+        &:nth-child(6n+3) { background: $yellow }
+        &:nth-child(6n+4) { background: $green }
+        &:nth-child(6n+5) { background: $blue }
+        &:nth-child(6n) { background: $purple }
+    }
+    
+}
+.setting {
+    padding: 30px 0;
+    .options {
+        width: 50*6px;
+        margin: 0 auto;
+        list-style: none;
+        overflow: auto;
+        cursor: pointer;
+        li {
+            float: left;
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            // padding: 10px 20px;
+            margin: 2px 5px;
+            background: black;
+            border-radius: 5px;
+            &:first-child{
+                margin-left: 0;
+            }
+            &.selected {
+                &:nth-child(6n+1) { background: $red }
+                &:nth-child(6n+2) { background: $orange }
+                &:nth-child(6n+3) { background: $yellow }
+                &:nth-child(6n+4) { background: $green }
+                &:nth-child(6n+5) { background: $blue }
+                &:nth-child(6n) { background: $purple }
+                background: $highlightColor;
+            }
+        }	
+}
+
+}

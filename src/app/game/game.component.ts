@@ -18,12 +18,12 @@ class Coordinate {
 })
 
 export class GameComponent implements OnInit {
-  PLAYER_NAME: string[] = ["Red", "Blue", "Yellow", "Green", "Pink", "Purple"]
+  PLAYER_NAME: string[] = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"]
   FOUR: number = 4
 
   // Game Setting
-  size: number = 10
-  numOfPlayers: number = 4
+  size: number = 9
+  numOfPlayers: number = 3
 
   // Game Status
   gameEnded: boolean = false
