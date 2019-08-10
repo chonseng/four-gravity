@@ -40,7 +40,8 @@
                 (click)="onLearningMode()">
                 Learning Mode: {{ learningMode ? "On" : "Off" }}
             </div>
-            <div class="button new_game" (click)="onNewGame()">New Game</div>
+            <div routerLink="/how-to-play" class="button">How to Play</div>
+            <div class="button transparent" (click)="onNewGame()">New Game</div>
         </div>
     </div>
 </section>

@@ -35,22 +35,24 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     // Get gameState
     this.getGameState()
-    const EDGE_INDICES = [0, this.gameState.size - 1]
-    for (let i of Array(this.gameState.size).keys()) {
-      let row = []
-      for (let j of Array(this.gameState.size).keys()) {
-        let tile: Tile = {
-          r: i,
-          c: j,
-          player: 0,
-          isValid: EDGE_INDICES.includes(i) || EDGE_INDICES.includes(j),
-          isPartOfWinStreak: false,
+    if (this.gameState.tiles.length == 0) {
+      const EDGE_INDICES = [0, this.gameState.size - 1]
+      for (let i of Array(this.gameState.size).keys()) {
+        let row = []
+        for (let j of Array(this.gameState.size).keys()) {
+          let tile: Tile = {
+            r: i,
+            c: j,
+            player: 0,
+            isValid: EDGE_INDICES.includes(i) || EDGE_INDICES.includes(j),
+            isPartOfWinStreak: false,
+          }
+          row.push(tile)
         }
-        row.push(tile)
+        this.gameState.tiles.push(row)
       }
-      this.gameState.tiles.push(row)
+      console.log(this.gameState.tiles)
     }
-    console.log(this.gameState.tiles)
   }
 
   getGameState(): void {

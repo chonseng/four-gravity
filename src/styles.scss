@@ -11,7 +11,7 @@
 }
 
 body {
-	font-family: 'Maven Pro', 'Nixie One', sans-serif;
+	font-family: 'Maven Pro', sans-serif;
 	color: $textColor;
 	font-size: 18px;
 
@@ -43,7 +43,7 @@ p {
 
 
 .button {
-	font-family: 'Maven Pro', 'Nixie One', cursive;
+	font-family: 'Maven Pro', sans-serif;
 	/** Offset the Position **/
 	position: relative;
 	top: 0;
@@ -80,7 +80,7 @@ p {
 			box-shadow: none;
 		}
 	}
-	&.new_game {
+	&.transparent {
 		margin: 1rem 0;
 		display: block;
 		background-color: transparent;
