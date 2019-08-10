@@ -16,7 +16,7 @@
                 <span>Size of the board:</span>
                 <ul class="size options">
                     <li *ngFor="let sizeOption of sizeOptions" 
-                        [ngClass]="{'selected': sizeOption == size}"
+                        [ngClass]="{'selected': sizeOption == gameState.size}"
                         (click)="onChooseSize(sizeOption)">
                         {{ sizeOption }}x{{ sizeOption }}
                     </li>
@@ -34,7 +34,7 @@
                 <span>Number of Players:</span>
                 <ul class="numOfPlayer options">
                     <li *ngFor="let numOfPlayersOption of numOfPlayersOptions" 
-                        [ngClass]="{selected: numOfPlayersOption == numOfPlayers}"
+                        [ngClass]="{selected: numOfPlayersOption == gameState.numOfPlayers}"
                         (click)="onChooseNumOfPlayers(numOfPlayersOption)">
                         {{ numOfPlayersOption }}
                     </li>
