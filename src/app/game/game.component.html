@@ -1,6 +1,6 @@
 <section class="game">
-    <div class="row">
-        <div class="large-6 medium-6 small-6 columns">
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 small-6 cell">
             <div class="turn">Turn: 
                 <div id="player_color" 
                     [ngClass]="'player' + gameState.turn">
@@ -8,7 +8,7 @@
                 <span class="name"></span>
             </div>
         </div>
-        <div class="large-6 medium-6 small-6 columns">
+        <div class="large-6 medium-6 small-6 cell">
             <a id="retract" 
                 [hidden]="!gameState.canRetract"
                 [ngClass]="'player' + preTurn(gameState.turn)"
@@ -17,30 +17,44 @@
             </a>
         </div>
     </div>
-    <div class="row">
-        <div class="large-12 medium-12 small-12 columns">
+    <div class="grid-x grid-padding-x">
+        <div class="cell">
             <div #wrapper class="wrapper" [ngClass]="{'learningMode': gameState.learningMode}">
-                <div *ngFor="let row of gameState.tiles;">
-                    <div *ngFor="let tile of row;" 
-                        (click)="onMove(tile)"
-                        [style.width]="wrapper.offsetWidth / gameState.size - 2 * 2 +'px'"
-                        [style.height]="wrapper.offsetWidth / gameState.size - 2 * 2 +'px'" 
-                        [ngClass]="setTileClasses(tile)"
-                        ngCloak
-                        class="check"></div>
+                <div class="grid-y">
+                    <div class="cell auto" *ngFor="let row of gameState.tiles;">
+                        <div class="grid-x gird-y" style="height: 100%;">
+                            <div *ngFor="let tile of row;" 
+                                (click)="onMove(tile)"
+                                [ngClass]="setTileClasses(tile)"
+                                ngCloak
+                                class="check cell auto">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="large-12 medium-12 small-12 columns">
+</section>
+
+<section>
+    <div class="grid-x grid-padding-x">
+        <div class="cell large-auto medium-auto">
             <div class="button pink_button" 
                 id="learning_mode" 
                 [ngClass]="{'checked': gameState.learningMode}"
                 (click)="onLearningMode()">
                 Learning Mode: {{ gameState.learningMode ? "On" : "Off" }}
             </div>
+        </div>
+        <div class="cell large-auto medium-auto">
             <div routerLink="/how-to-play" class="button">How to Play</div>
+        </div>
+    </div>
+<section>
+<section>
+    <div class="grid-x grid-padding-x">
+        <div class="cell large-auto medium-auto">
             <div class="button transparent" (click)="onNewGame()">New Game</div>
         </div>
     </div>

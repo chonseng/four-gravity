@@ -1,19 +1,19 @@
 @import "./variables.scss";
+@import '../node_modules/foundation-sites/assets/foundation.scss';
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-}
-.row {
-	width: 100%;
-	max-width: 600px;
-	padding: 0 20px;
 }
 
 body {
 	font-family: 'Maven Pro', sans-serif;
 	color: $textColor;
 	font-size: 18px;
+
+	max-width: 600px;
+	margin: 0 auto;
 
 	background-image: url(./assets/img/bg.svg);
 	background-size: auto 100%;
@@ -44,11 +44,10 @@ p {
 
 .button {
 	font-family: 'Maven Pro', sans-serif;
+	font-size: 1rem;
 	/** Offset the Position **/
 	position: relative;
 	top: 0;
-	margin-top: 0;
-	margin-bottom: 5px;
 
 	box-shadow: 0 5px 0 0 $darkWhite;
 
@@ -61,7 +60,6 @@ p {
 	&:active {
 		box-shadow: none;
 		top: 5px;
-		margin-bottom: 0;
 	}
 
 	&:hover {
@@ -81,7 +79,6 @@ p {
 		}
 	}
 	&.transparent {
-		margin: 1rem 0;
 		display: block;
 		background-color: transparent;
 		box-shadow: 0 5px 0 0 $textColor;

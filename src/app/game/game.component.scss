@@ -1,20 +1,41 @@
 @import '../../variables.scss';
 section.game {
-	margin: 30px 0;
+	margin-top: 30px;
+}
+section {
+	margin: 10px 0;
 }
 .wrapper {
 	width: 100%;
 	overflow: visible;
 	margin-bottom: 10px;
+	/*
+		Square Hacks from Bobby
+		https://spin.atomicobject.com/2015/07/14/css-responsive-square/
+	*/
+	position: relative;
+	&:after {
+		content: "";
+		display: block;
+		padding-bottom: 100%;
+	}
+	& > div {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	/*
+		Square Hacks <End>
+	*/
 	&.learningMode .valid {
 		border: 2px solid $pink;
 		box-shadow: 0 0 10px $pink inset;
 	}
 	.check {
-		width: 80px;
-		height: 80px;
+		// width: 80px;
+		// height: 80px;
 		border: 2px solid $lightWhite;
-		float: left;
+		// float: left;
 		border-radius: 5px;
 		margin: 2px; // MARGIN in javascript
 		-webkit-transition: .2s ease-out box-shadow,.2s ease-out border;
@@ -141,11 +162,4 @@ section.game {
 	color: white;
 	margin-top: 5px;
 
-}
-
-
-#learning_mode {
-	position: relative;
-	margin: 1rem 0;
-	display: block;
 }
