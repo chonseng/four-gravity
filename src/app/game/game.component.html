@@ -37,25 +37,23 @@
     </div>
 </section>
 
-<section>
-    <div class="grid-x grid-padding-x">
-        <div class="cell large-auto medium-auto">
-            <div class="button pink_button" 
-                id="learning_mode" 
-                [ngClass]="{'checked': gameState.learningMode}"
-                (click)="onLearningMode()">
-                Learning Mode: {{ gameState.learningMode ? "On" : "Off" }}
-            </div>
-        </div>
-        <div class="cell large-auto medium-auto">
-            <div routerLink="/how-to-play" class="button">How to Play</div>
+
+<div class="grid-x grid-padding-x grid-padding-y">
+    <div class="cell large-auto medium-auto">
+        <div class="button pink_button" 
+            id="learning_mode" 
+            [ngClass]="{'checked': gameState.learningMode}"
+            (click)="onLearningMode()">
+            Learning Mode: {{ gameState.learningMode ? "On" : "Off" }}
         </div>
     </div>
-<section>
-<section>
-    <div class="grid-x grid-padding-x">
-        <div class="cell large-auto medium-auto">
-            <div class="button transparent" (click)="onNewGame()">New Game</div>
-        </div>
+    <div class="cell large-auto medium-auto">
+        <div routerLink="/how-to-play" class="button">How to Play</div>
     </div>
-</section>
+</div>
+
+<div class="grid-x grid-padding-x grid-padding-y">
+    <div class="cell large-auto medium-auto">
+        <div class="button transparent" (click)="onNewGame()">New Game</div>
+    </div>
+</div>
