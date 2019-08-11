@@ -19,7 +19,7 @@
     </div>
     <div class="grid-x grid-padding-x">
         <div class="cell">
-            <div #wrapper class="wrapper" [ngClass]="{'learningMode': gameState.learningMode}">
+            <div #wrapper class="wrapper square" [ngClass]="{'learningMode': gameState.learningMode}">
                 <div class="grid-y">
                     <div class="cell auto" *ngFor="let row of gameState.tiles;">
                         <div class="grid-x gird-y" style="height: 100%;">

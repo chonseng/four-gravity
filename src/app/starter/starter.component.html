@@ -11,39 +11,28 @@
         </div>
     </div>
     <div class="grid-x grid-padding-x">
-        <div class="large-12 medium-12 small-12 cell">
+        <div class="cell">
             <section class="setting">
-                <span>Size of the board:</span>
-                <ul class="size options">
-                    <li *ngFor="let sizeOption of sizeOptions" 
+                <div class="options-text">Size of the board:</div>
+                <div class="size options grid-x grid-margin-x">
+                    <div class="cell auto square"
+                        *ngFor="let sizeOption of sizeOptions" 
                         [ngClass]="{'selected': sizeOption == gameState.size}"
                         (click)="onChooseSize(sizeOption)">
-                        {{ sizeOption }}x{{ sizeOption }}
-                    </li>
-                    <!-- <li id="size-8">8</li>
-                    <li id="size-9">9</li>
-                    <li id="size-10" class="selected">10</li>
-                    <li id="size-11">11</li>
-                    <li id="size-12">12</li>
-                    <li id="size-13">13</li>
-                    <li id="size-14">14</li>
-                    <li id="size-15">15</li> -->
-                </ul>
+                        <div class="option"><span>{{ sizeOption }}x{{ sizeOption }}</span></div>
+                    </div>
+                </div>
             </section>
             <section class="setting">
-                <span>Number of Players:</span>
-                <ul class="numOfPlayer options">
-                    <li *ngFor="let numOfPlayersOption of numOfPlayersOptions" 
+                <div class="options-te t">Number of Players:</div>
+                <div class="numOfPlayer options grid-x grid-margin-x">
+                    <div class="cell auto square" 
+                        *ngFor="let numOfPlayersOption of numOfPlayersOptions" 
                         [ngClass]="{selected: numOfPlayersOption == gameState.numOfPlayers}"
                         (click)="onChooseNumOfPlayers(numOfPlayersOption)">
-                        {{ numOfPlayersOption }}
-                    </li>
-                    <!-- <li id="numOfPlayer-2">2</li>
-                    <li id="numOfPlayer-3">3</li>
-                    <li id="numOfPlayer-4" class="selected">4</li>
-                    <li id="numOfPlayer-5">5</li>
-                    <li id="numOfPlayer-6">6</li> -->
-                </ul>
+                        <div class="option"><span>{{ numOfPlayersOption }}</span></div>
+                    </div>
+                </div>
             </section>
             <div class="button new_game" (click)="onNewGame()">New Game</div>
         </div>

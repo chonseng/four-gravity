@@ -23,8 +23,6 @@ class Coordinate {
 export class GameComponent implements OnInit {
   PLAYER_NAME: string[] = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"]
   FOUR: number = 4
-  // Tile margin
-  MARGIN: number = 2
 
   gameState: GameState
 

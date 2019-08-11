@@ -26,22 +26,45 @@ h1 {
     }
     
 }
+@mixin vertical-align($align: middle) {
+  &:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: $align;
+    // you can add font-size 0 here and restore in the children to prevent
+    // the inline-block white-space to mess the width of your elements
+    font-size: 0;
+  }
+  & > * {
+    vertical-align: $align;
+    // although you need to know the font-size, because "inherit" is 0
+    font-size: 14px;
+  }
+}
 .setting {
     padding: 30px 0;
+    .options-text {
+        margin: 0px auto;
+        padding: 10px 0;
+    }
     .options {
-        width: 50*6px;
-        margin: 0 auto;
+        // width: 50*6px;
+        margin: 10px auto;
         list-style: none;
         overflow: auto;
         cursor: pointer;
-        li {
-            float: left;
-            height: 50px;
-            width: 50px;
-            line-height: 50px;
-            text-align: center;
+        .option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        & > div {
+            // float: left;
+            // height: 50px;
+            // width: 50px;
             // padding: 10px 20px;
-            margin: 2px 5px;
+            // margin: 2px 5px;
             background: black;
             border-radius: 5px;
             &:first-child{

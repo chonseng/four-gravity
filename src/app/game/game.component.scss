@@ -6,27 +6,9 @@ section {
 	margin: 10px 0;
 }
 .wrapper {
-	width: 100%;
+	
 	overflow: visible;
 	margin-bottom: 10px;
-	/*
-		Square Hacks from Bobby
-		https://spin.atomicobject.com/2015/07/14/css-responsive-square/
-	*/
-	position: relative;
-	&:after {
-		content: "";
-		display: block;
-		padding-bottom: 100%;
-	}
-	& > div {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
-	/*
-		Square Hacks <End>
-	*/
 	&.learningMode .valid {
 		border: 2px solid $pink;
 		box-shadow: 0 0 10px $pink inset;
