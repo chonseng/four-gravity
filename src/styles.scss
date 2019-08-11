@@ -20,7 +20,7 @@ body {
 	background-attachment: fixed;
 	background-position: center center;
 }
-h1, .row h2 {
+h1, h2 {
 	font-family: 'Pacifico', cursive;
 	color: $textColor;
 	text-align: center;
@@ -28,6 +28,7 @@ h1, .row h2 {
 }
 h2 {
 	margin: 2rem 0;
+	font-size: 2rem;
 }
 section {
 	// margin-top: 2rem;
