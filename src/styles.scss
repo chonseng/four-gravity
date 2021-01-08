@@ -26,6 +26,9 @@ h1, h2 {
 	color: $textColor;
 	text-align: center;
 	margin: 50px 0;
+	&.swal2-title {
+		font-family: 'Maven Pro', sans-serif;
+	}
 }
 h2 {
 	margin: 2rem 0;
