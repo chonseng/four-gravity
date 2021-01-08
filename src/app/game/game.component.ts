@@ -5,10 +5,7 @@ import { Tile } from '../tile';
 import { GameState } from '../game-state';
 import { GameStateService } from '../game-state.service';
 
-import * as _swal from 'sweetalert';
-import { SweetAlert } from 'sweetalert/typings/core';
-
-const swal: SweetAlert = _swal as any;
+import Swal from 'sweetalert2';
 
 class Coordinate {
   r: number;
@@ -192,7 +189,7 @@ export class GameComponent implements OnInit {
       let hasWon: boolean = this.checkWinCondition(tile)
       if (hasWon) {
         console.log(tile.player + " won!")
-        swal({
+        Swal.fire({
           title: "Congratulations!",
           text: this.PLAYER_NAME[this.gameState.turn - 1] + " won the game!",
         })
@@ -205,28 +202,15 @@ export class GameComponent implements OnInit {
       if (this.gameState.availableMoves == 0) {
         this.gameState.gameEnded = true
         this.gameState.canRetract = false
-        swal({
+        Swal.fire({
           title: "Draw!",
           icon: "info",
-          buttons: {
-            cancel: {
-              text: "Close",
-              value: null,
-              visible: true,
-              className: "",
-              closeModal: true,
-            },
-            confirm: {
-              text: "Start a new game!",
-              value: true,
-              visible: true,
-              className: "",
-              closeModal: true
-            }
-          }
+          showCancelButton: true,
+          confirmButtonText: "Start a new game!",
+          cancelButtonText: "Close"
         })
-        .then((value) => {
-          if (value)
+        .then((result) => {
+          if (result.isConfirmed)
             this.onNewGame()
         })
       }
@@ -249,32 +233,19 @@ export class GameComponent implements OnInit {
       this.router.navigate(['/start'])
     }
     else {
-      swal({
+      Swal.fire({
         title: "Are you sure to start a new game?",
         text: "You will not be able to recover the game progress!",
         icon: "warning",
-        buttons: {
-          cancel: {
-            text: "Cancel",
-            value: null,
-            visible: true,
-            className: "",
-            closeModal: true,
-          },
-          confirm: {
-            text: "Yes, start a new game!",
-            value: true,
-            visible: true,
-            className: "",
-            closeModal: true
-          }
+        showCancelButton: true,
+        confirmButtonText: "Yes, start a new game!",
+        cancelButtonText: "Cancel"
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/start'])
         }
       })
-        .then((value) => {
-          if (value) {
-            this.router.navigate(['/start'])
-          }
-        })
     }
   }
 }

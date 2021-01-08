@@ -4,12 +4,6 @@ import { Router } from '@angular/router';
 import { GameState } from '../game-state';
 import { GameStateService } from '../game-state.service';
 
-// import swal from 'sweetalert';
-import * as _swal from 'sweetalert';
-import { SweetAlert } from 'sweetalert/typings/core';
-
-const swal: SweetAlert = _swal as any;
-
 @Component({
   selector: 'app-starter',
   templateUrl: './starter.component.html',
